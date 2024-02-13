@@ -198,7 +198,9 @@ for(const link of filterLink){
     })
 };
 
+
 //Modal Gen
+const modalAnimation = 'slideInOutTop';
 
 const modalGen = (obj) => {
 
@@ -206,8 +208,8 @@ const modalGen = (obj) => {
     modal = document.createElement('div');
     modal.classList.add('modal');
     modal.setAttribute('id', obj.modalId);
-    modal.dataset.animation = 'slideInOutTop';
-    
+    modal.dataset.animation = modalAnimation;
+
     const modalDialogue = document.createElement('div');
     modalDialogue.classList.add('modal-dialogue');
 
@@ -272,7 +274,8 @@ for(const elm of openModal){
         for(item in portfolioCards){
             if(portfolioCards[item].modalId === this.dataset.open){            
                 const modalSection = document.querySelector('.site-wrapper');
-                modalSection.append(modalGen(portfolioCards[item]));   
+                modalSection.append(modalGen(portfolioCards[item]));  
+                 modalSection.querySelector('.modal .modal-dialogue')
                 console.log(portfolioCards[item]);
             }
         }
@@ -290,26 +293,20 @@ const closeModal = document.querySelectorAll(modalClose);
 for (const elm of closeModal){
     elm.addEventListener('click', function(){
         this.parentElement.parentElement.parentElement.classList.remove(isVisible);
-        if(this.parentElement.parentElement.parentElement.parentElement.classList === '.modal.is-visible'){
-            const removal = document.querySelector('.modal.is-visible');
-            removal.remove();
-        }
     })
  
 };
-
-
 
 
 //Modal
 
 
 document.addEventListener('click', (e) =>{
-    if(e.target === document.querySelector('.modal.is-visible')){
+    if(e.target === document.querySelector('.modal.is-visible') || e.target === document.querySelector('.modal.is-visible').querySelector('[data-close]')){
         const removal = document.querySelector('.modal.is-visible');
         removal.remove();
     }
-});
+}); 
 
 
 document.addEventListener('keyup', (e) =>{
